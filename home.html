@@ -9,17 +9,18 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Almendra:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+        <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> -->
     </head>
     <body>
         <header class="header">
             <nav>
-                <h1 class="logo" href="./1.html">TRIPCRAFT</h1>
+                <h1 class="logo" href="./home.html">TRIPCRAFT</h1>
                 <ul>
-                    <li><a href="#home">Home</a></li>
+                    <li><a href="./home.html">Home</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#tours">Tours</a></li>
-                    <li><a href="#Destinations">Destinations</a></li>
-                    <li><a href="#Contact">Contact</a></li>
+                    <li><a href="./packages.php">Packages</a></li>
+                    <li><a href="#book">Book</a></li>
+                    <!-- <li><a href="#Contact">Contact</a></li> -->
                 </ul>
                 
 
@@ -33,23 +34,31 @@
                     <button>Login</button>
                     <button>Sign Up</button>
                 </div>
-                <div class="trip_box">
+                
+                <form action="./backend/search.php" method="GET" class="trip_box">
                     <div class="search_box">
+                        
                         <div class="card">
                             <h4>Location <i class="bi bi-caret-down-fill"></i></h4>
                             <input type="text" placeholder="Enter your destination">
                         </div>
                         <div class="card">
                             <h4>Date <i class="bi bi-caret-down-fill"></i></h4>
-                            <input type="date">
+                            <input type="date" name="travel_date" min="<? php echo date('Y-m-d'); ?>">
                         </div>
                         <div class="card">
                             <h4>People <i class="bi bi-caret-down-fill"></i></h4>
-                            <input type="number" placeholder="How many People?">
+                            <input type="number" placeholder="How many People?" min="1" max="20">
                         </div>
-                        <input type="button" value="Explore Now">
+                        <!-- <input type="button" value="Explore Now"> -->
+                        <a href=""><i class="bi bi-search"></i></a>
                     </div>
-                </div>
+                </form>
+                <main id="results"></main>
+                 
+                  
+                
+               
             </div>
             <section id="about">
                 <div class="container">
@@ -161,7 +170,7 @@
                 </div>
                 </div>
             </section> 
-            <section id="static-counter">
+            <!-- <section id="static-counter">
                 <div class="container">
                     <div class="static-wrapper">
                         <div class="static-icons">
@@ -186,7 +195,46 @@
                         </div>
                     </div>
                 </div>
+            </section> -->
+            <section class="footer">
+                <div class="one">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li>Home</li>
+                        <li>About</li>
+                        <li>Packages</li>
+                        <li>Book</li>
+                    </ul>
+                </div>
+                <div class="two">
+                    <h3>Extra Links</h3>
+                    <ul>
+                        <li>Need Help?</li>
+                        <li>About Us</li>
+                        <li>Privay Policy</li>
+                        <li>Terms of Use</li>
+                    </ul>
+                </div>
+                <div class="three">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li>Home</li>
+                        <li>About</li>
+                        <li>Packages</li>
+                        <li>Book</li>
+                    </ul>
+                </div>
+                <div class="four">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li>Home</li>
+                        <li>About</li>
+                        <li>Packages</li>
+                        <li>Book</li>
+                    </ul>
+                </div>
             </section>
         </header>
+        
     </body>
 </html>
