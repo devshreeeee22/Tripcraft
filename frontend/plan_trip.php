@@ -1,16 +1,12 @@
 <?php
-// Include the generate_itinerary.php to use the getItinerary function
 include('../backend/generate_itinerary.php');
 
-// Initialize variables to avoid "undefined variable" errors
 $destination = '';
 $places = [];
 
 if (isset($_GET['destination']) && !empty($_GET['destination'])) {
-    // Get the destination from the URL parameter
     $destination = htmlspecialchars($_GET['destination']);
-    
-    // Fetch itinerary for the given destination
+
     $places = getItinerary($destination);
 }
 ?>
