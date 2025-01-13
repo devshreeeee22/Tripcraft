@@ -1,40 +1,54 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+// Connect to the database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "tripcraft"; // Replace with your database name
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
-$host = 'localhost';
-$username='root';
-$password='';
-$dbname='Tripcraft';
+// Get the destination from the form
+$destination = mysqli_real_escape_string($conn, $_GET['destination']);
 
-$conn=mysqli_connect($host,$username,$password,$dbname);
+// Query the database for the destination
+$sql = "SELECT * FROM travel_packages WHERE destination LIKE '%$destination%'";
+$result = $conn->query($sql);
 
-if(!$conn){
-    die("Connection failed: " . mysqli_connect_error);
-}
-
-if(isset($_GET['destination'])){
-    $destination = $conn -> real_escape_string($_GET['destination']);
-    $sql = $sql = "SELECT * FROM travel_packages WHERE destination LIKE '%$destination%'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo "<div class='package'>";
-            echo "<img src='" . $row['image_url'] . "' alt='" . $row['package_name'] . "'>";
-            echo "<h2>" . $row['package_name'] . "</h2>";
-            echo "<p>" . $row['description'] . "</p>";
-            echo "<p>Price: $" . $row['price'] . "</p>";
-            echo "<p>Duration: " . $row['duration'] . "</p>";
-            echo "</div>";
-        }
-    } else {
-        echo "<p>No packages found for '$destination'.</p>";
-    }
-}
-
-$conn->close();
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results for "<?php echo htmlspecialchars($destination); ?>"</h1>
 
+    <?php
+    if ($result->num_rows > 0) {
+        // Output data for each package
+        while ($row = $result->fetch_assoc()) {
+            echo "<div>";
+            echo "<h2>" . htmlspecialchars($row['package_name']) . "</h2>";
+            echo "<p>" . htmlspecialchars($row['description']) . "</p>";
+            echo "<p>Price: ₹" . htmlspecialchars($row['price']) . "</p>";
+            echo "</div><hr>";
+        }
+    } else {
+        echo "<p>No packages found for this destination.</p>";
+    }
+    ?>
+
+</body>
+</html>
+
+<?php
+$conn->close();
+?>
